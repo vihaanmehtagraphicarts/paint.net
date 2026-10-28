@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vihaan Mehta | Paint.NET Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f1a;
+    --panel: #171828;
+    --text: #eceaf5;
+    --muted: #9b99b5;
+    --a1: #ff7a3d;
+    --a2: #ff3d81;
+    --a3: #7a5cff;
+    --a4: #2fd5ff;
+    --grad: linear-gradient(120deg, var(--a1), var(--a2) 45%, var(--a3));
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center;
+    padding: .9rem 1rem;
+    background: rgba(14,15,26,.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #25263a;
+  }
+  nav a {
+    color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500;
+    padding: .6rem .5rem; min-height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
+  }
+  nav a:hover { color: var(--text); border-color: var(--a2); }
+  a:focus-visible, .frame img:focus-visible { outline: 3px solid var(--a4); outline-offset: 3px; }
+  .btn, nav a { cursor: pointer; }
+
+  /* HERO */
+  .hero {
+    min-height: 82vh;
+    display: grid; place-items: center; text-align: center;
+    padding: 4rem 1.5rem;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,122,61,.28), transparent 40%),
+      radial-gradient(circle at 85% 30%, rgba(122,92,255,.30), transparent 42%),
+      radial-gradient(circle at 50% 100%, rgba(255,61,129,.25), transparent 50%),
+      var(--bg);
+  }
+  .eyebrow { letter-spacing: .3em; text-transform: uppercase; font-size: .8rem; color: var(--a4); }
+  .hero h1 {
+    font-family: "Archivo", sans-serif; font-weight: 800;
+    font-size: clamp(2.8rem, 9vw, 6.5rem); line-height: 1.02; margin: 1rem 0;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p { color: var(--muted); max-width: 34rem; margin: 0 auto 2rem; }
+  .btn {
+    display: inline-block; padding: .8rem 1.8rem; border-radius: 999px;
+    background: var(--grad); color: #fff; font-weight: 700; text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,61,129,.35); }
+
+  /* PROJECTS */
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .project {
+    display: grid; grid-template-columns: 1fr 1.25fr; gap: 3rem; align-items: center;
+    padding: 4.5rem 0; border-bottom: 1px solid #22233a;
+  }
+  .project:nth-of-type(even) { grid-template-columns: 1.25fr 1fr; }
+  .project:nth-of-type(even) .text { order: 2; }
+  .num {
+    font-family: "Archivo", sans-serif; font-size: 4rem; font-weight: 800; line-height: 1;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .text h2 { font-family: "Archivo", sans-serif; font-size: 2rem; margin: .3rem 0 .8rem; }
+  .text p { color: var(--muted); }
+  .tag {
+    display: inline-block; margin-top: 1rem; padding: .25rem .8rem;
+    border: 1px solid #34355a; border-radius: 999px; font-size: .78rem; color: var(--a4);
+  }
+
+  .frame {
+    background: var(--panel); border-radius: 16px; padding: 10px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.45);
+    transition: transform .3s;
+  }
+  .frame:hover { transform: scale(1.015); }
+  .frame img { width: 100%; height: auto; display: block; border-radius: 8px; cursor: zoom-in; }
+  .placeholder {
+    aspect-ratio: 16/10; border-radius: 8px;
+    border: 2px dashed #3a3b66;
+    display: grid; place-items: center; text-align: center; padding: 1rem;
+    color: var(--muted); font-size: .9rem;
+  }
+  .placeholder b { color: var(--a1); display: block; font-size: 1rem; margin-bottom: .3rem; }
+
+  /* galleries: several versions of one project */
+  .gallery { display: grid; gap: 10px; }
+  .gallery.g2 { grid-template-columns: 1fr 1fr; }
+  .gallery.g3 { grid-template-columns: 1fr 1fr; }
+  .gallery.g3 img:first-child { grid-column: 1 / -1; }
+  .gallery img { aspect-ratio: 4/3; object-fit: cover; }
+  .gallery.g2 img { aspect-ratio: 4/3; }
+  .gallery img[src*="explosion"] { aspect-ratio: 1/1; }
+  .gallery .placeholder { aspect-ratio: 4/3; }
+  #blend .frame { max-width: 460px; justify-self: center; }
+
+  footer { text-align: center; padding: 3rem 1rem; color: var(--muted); font-size: .9rem; border-top: 1px solid #22233a; }
+
+  /* LIGHTBOX */
+  #lightbox {
+    position: fixed; inset: 0; background: rgba(5,5,12,.92); display: none;
+    place-items: center; z-index: 50; cursor: zoom-out; padding: 2rem;
+  }
+  #lightbox.open { display: grid; }
+  #lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  @media (max-width: 800px) {
+    nav { position: static; }
+    .project, .project:nth-of-type(even) { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 0; }
+    .project:nth-of-type(even) .text { order: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#fire">Fire &amp; Swirls</a>
+  <a href="#clouds">Fluffy Clouds</a>
+  <a href="#explosion">Explosion</a>
+  <a href="#blend">Blend Modes</a>
+  <a href="#poster">Poster</a>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">Graphic Arts 8 &middot; Paint.NET</div>
+    <h1>Art<br>Portfolio</h1>
+    <p>A collection of my favorite digital art projects, made with layers, effects, and a lot of experimenting. By Vihaan Mehta.</p>
+    <a class="btn" href="#fire">View my work</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. FIRE AND SWIRLS -->
+  <section class="project" id="fire">
+    <div class="text">
+      <div class="num">01</div>
+      <h2>Fire and Swirls</h2>
+      <p>I made this fire by stacking layers: a black-to-white gradient, a Clouds effect for the flame texture, and then colors to turn it red and orange. I also tried different color settings to make blue and pink-green versions, and each one looks completely different.</p>
+      <span class="tag">Gradient &middot; Clouds &middot; Swirl</span>
+    </div>
+    <div class="frame gallery g3"><img src="images/fire-red.png" width="1000" height="750" loading="lazy" decoding="async" tabindex="0" role="button" alt="Red fire effect"><img src="images/swirl-blue.png" width="1000" height="750" loading="lazy" decoding="async" tabindex="0" role="button" alt="Blue swirl fire variation"><img src="images/swirl-pink-green.png" width="1000" height="750" loading="lazy" decoding="async" tabindex="0" role="button" alt="Pink and green swirl fire variation"></div>
+  </section>
+
+  <!-- 2. FLUFFY CLOUDS -->
+  <section class="project" id="clouds">
+    <div class="text">
+      <div class="num">02</div>
+      <h2>Fluffy Clouds</h2>
+      <p>I built these clouds with soft white shapes on a gradient sky, then blurred them so they look fluffy. I made a blue daytime sky and a purple-pink sunset sky to see how the background color changes the mood.</p>
+      <span class="tag">Clouds Effect &middot; Layers</span>
+    </div>
+    <div class="frame gallery g2"><img src="images/cloud-blue.png" width="518" height="388" loading="lazy" decoding="async" tabindex="0" role="button" alt="Fluffy cloud in a blue sky"><img src="images/cloud-purple.png" width="1000" height="750" loading="lazy" decoding="async" tabindex="0" role="button" alt="Fluffy cloud in a purple and pink sky"></div>
+  </section>
+
+  <!-- 3. EXPLOSION -->
+  <section class="project" id="explosion">
+    <div class="text">
+      <div class="num">03</div>
+      <h2>Cool Explosion / Exploding Planet</h2>
+      <p>I used a planet texture and added effects like Radial Blur to make it look like it is blasting apart, with light streaking out from the center. I made two color versions, a natural green and orange one and a bright orange and purple one.</p>
+      <span class="tag">Effects &middot; Layers &middot; Blend</span>
+    </div>
+    <div class="frame gallery g2"><img src="images/explosion-green.png" width="800" height="800" loading="lazy" decoding="async" tabindex="0" role="button" alt="Green and orange explosion"><img src="images/explosion-purple.png" width="800" height="800" loading="lazy" decoding="async" tabindex="0" role="button" alt="Orange and purple explosion"></div>
+  </section>
+
+  <!-- 4. BLEND MODES -->
+  <section class="project" id="blend">
+    <div class="text">
+      <div class="num">04</div>
+      <h2>Blend Modes</h2>
+      <p>I changed the Blend Mode on my layers to see how they mix together, and the colors turned glitchy and rainbow. I used this lesson to try the examples in the documentation and then build my own version with a helmeted character and a big-eared creature behind it.</p>
+      <span class="tag">Blend Modes &middot; Layer Properties</span>
+    </div>
+    <div class="frame">
+      <img src="images/blend-modes.png" width="555" height="553" loading="lazy" decoding="async" tabindex="0" role="button" alt="Blend modes artwork: a Mandalorian-style helmeted figure with a large-eared child behind, in glitchy rainbow colors">
+    </div>
+  </section>
+
+  <!-- 5. POSTER -->
+  <section class="project poster" id="poster">
+    <div class="text">
+      <div class="num">05</div>
+      <h2>Poster</h2>
+      <p>For my poster, I made a collage for Project Hail Mary using slanted strips of space and planet scenes, with the astronaut in the middle and the title at the bottom. It combines skills from earlier projects, like layers, cutting out a subject, and adding text.</p>
+      <span class="tag">Text &middot; Layout &middot; Effects</span>
+    </div>
+    <div class="frame"><img src="images/poster-hail-mary.png" width="1280" height="900" loading="lazy" decoding="async" tabindex="0" role="button" alt="Project Hail Mary poster collage"></div>
+  </section>
+
+</main>
+
+<footer>
+  Vihaan Mehta &middot; Graphic Arts 8 &middot; Section 12 &middot; Made with Paint.NET
+</footer>
+
+<div id="lightbox" role="dialog" aria-label="Enlarged artwork"><img alt=""></div>
+
+<script>
+  // If an image is missing, show a friendly placeholder telling you which file to add
+  document.querySelectorAll('.frame img').forEach(function (img) {
+    function showPlaceholder() {
+      var file = img.getAttribute('src');
+      var box = document.createElement('div');
+      box.className = 'placeholder';
+      box.innerHTML = '<div><b>Add your image</b>Put a PNG or JPEG named<br><code>' + file + '</code></div>';
+      img.replaceWith(box);
+    }
+    img.addEventListener('error', showPlaceholder);
+    if (img.complete && img.naturalWidth === 0) showPlaceholder();
+    // Click to enlarge
+    function openLb() {
+      var lb = document.getElementById('lightbox');
+      lb.querySelector('img').src = img.src;
+      lb.querySelector('img').alt = img.alt;
+      lb.classList.add('open');
+    }
+    img.addEventListener('click', openLb);
+    img.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLb(); }
+    });
+  });
+  document.getElementById('lightbox').addEventListener('click', function () {
+    this.classList.remove('open');
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+  });
+</script>
+</body>
+</html>
